@@ -12,9 +12,11 @@ import java.net.URL;
 
 public class GetRawData {
     private String mRawUrl;
+    private IProcessRawData mContext;
 
-    public GetRawData(String url){
+    public GetRawData(String url, IProcessRawData context){
         this.mRawUrl = url;
+        this.mContext = context;
     }
 
     public void startDownload(){
@@ -27,6 +29,7 @@ public class GetRawData {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            mContext.processRawData(result);
             Log.d("LINCEO", result);
         }
 
@@ -67,6 +70,10 @@ public class GetRawData {
             }
             return buffer.toString();
         }
+    }
+
+    interface IProcessRawData{
+        public void processRawData(String json);
     }
 }
 
