@@ -11,12 +11,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetFlickrJavaObject implements GetRawData.IProcessRawData{
+public class GetFlickrJavaObjects implements GetRawData.IProcessRawData{
 
     private Uri mUri;
     private List<Photo> mPhotos = new ArrayList<>();
-    public GetFlickrJavaObject(String tags, boolean tagmode){
+    private IDisplayPhoto mAfficheur;
+    public GetFlickrJavaObjects(String tags, boolean tagmode, IDisplayPhoto afficheur){
         this.mUri = createUri(tags, tagmode);
+        mAfficheur = afficheur;
         GetRawData getRawData = new GetRawData(mUri.toString(), this);
         getRawData.startDownload();
     }
@@ -71,5 +73,9 @@ public class GetFlickrJavaObject implements GetRawData.IProcessRawData{
         for(Photo singlePhoto : mPhotos){
             Log.d("LINCEO", singlePhoto.toString());
         }
+        mAfficheur.displayPhoto(mPhotos);
+    }
+    interface IDisplayPhoto{
+        public void displayPhoto(List<Photo> photoList);
     }
 }

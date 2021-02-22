@@ -41,6 +41,30 @@ public class Photo {
         this.mImageUrl = mImageUrl;
     }
 
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public String getAuthor() {
+        return mAuthor;
+    }
+
+    public String getAuthorId() {
+        return mAuthorId;
+    }
+
+    public String getLinks() {
+        return mLinks;
+    }
+
+    public String getTag() {
+        return mTag;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
     @Override
     public String toString() {
         return "Photo{" +

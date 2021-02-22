@@ -1,16 +1,27 @@
 package com.example.flickrapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
+public class MainActivity extends AppCompatActivity implements GetFlickrJavaObjects.IDisplayPhoto {
+
+    private RecyclerView mRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetFlickrJavaObject getFlickrJavaObject = new GetFlickrJavaObject("Android, lollipop", true);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        GetFlickrJavaObjects getFlickrJavaObjects = new GetFlickrJavaObjects("beach, summer", true, this);
         
+    }
+    public void displayPhoto(List<Photo> photoList){
+        FlickrRecyclerViewAdapter flickrRecyclerViewAdapter = new FlickrRecyclerViewAdapter(this, photoList);
+        mRecyclerView.setAdapter(flickrRecyclerViewAdapter);
     }
 }
