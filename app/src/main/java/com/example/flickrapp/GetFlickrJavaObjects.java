@@ -16,6 +16,9 @@ public class GetFlickrJavaObjects implements GetRawData.IProcessRawData{
     private Uri mUri;
     private List<Photo> mPhotos = new ArrayList<>();
     private IDisplayPhoto mAfficheur;
+
+    // download json string data from the proper flickr url
+    // tagmode pour savoir la photo doit avoir tous les tags ou au moins un
     public GetFlickrJavaObjects(String tags, boolean tagmode, IDisplayPhoto afficheur){
         this.mUri = createUri(tags, tagmode);
         mAfficheur = afficheur;
@@ -23,6 +26,7 @@ public class GetFlickrJavaObjects implements GetRawData.IProcessRawData{
         getRawData.startDownload();
     }
 
+    // Create uri using tags to fetch data from flickr
     private Uri createUri(String tags, boolean tagmode){
         final String FLICKR_API_BASE = "https://api.flickr.com/services/feeds/photos_public.gne";
         final String PARAM_TAGS = "tags";
@@ -39,6 +43,8 @@ public class GetFlickrJavaObjects implements GetRawData.IProcessRawData{
         return uri;
     }
 
+    // convert json string into a list of photo object
+    // at the end, launch the display of the list of photos into the main activity
     @Override
     public void processRawData(String json) {
         final String FLICKR_ITEMS = "items";
@@ -55,16 +61,22 @@ public class GetFlickrJavaObjects implements GetRawData.IProcessRawData{
             JSONArray items = jsonData.getJSONArray(FLICKR_ITEMS);
             for(int i = 0; i < items.length(); i++){
                 JSONObject jsonPhoto = items.getJSONObject(i);
+
+                // retrieve data of each attribute of the json
                 String title = jsonPhoto.getString(FLICKR_TITLE);
                 String author = jsonPhoto.getString(FLICKR_AUTHOR);
                 String authorId = jsonPhoto.getString(FLICKR_AUTHOR_ID);
                 String link = jsonPhoto.getString(FLICKR_LINK);
                 String tags = jsonPhoto.getString(FLICKR_TAGS);
 
+                // get the url of the photo
                 JSONObject jsonMedia = jsonPhoto.getJSONObject(FLICKR_MEDIA);
                 String photoUrl = jsonMedia.getString(FLICKR_PHOTO_URL);
 
+                // create Photo object
                 Photo photo = new Photo(title, author, authorId, link, tags, photoUrl);
+
+                // Add it to the list
                 mPhotos.add(photo);
             }
         } catch (JSONException e) {

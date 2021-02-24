@@ -19,13 +19,18 @@ public class GetRawData {
         this.mContext = context;
     }
 
+    // Starter of the AsyncTask
     public void startDownload(){
         DownloadRawData downloadRawData = new DownloadRawData();
         downloadRawData.execute(this.mRawUrl);
     }
 
+    // Long task => get data from website
+    // Downloading data from flickr
     class DownloadRawData extends AsyncTask<String, Void, String> {
 
+        // once the dowloading has ended, the json string data is sent using GetFlickrJavaObjects instance
+        // also display the json in the Logcat for debugging purposes
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);

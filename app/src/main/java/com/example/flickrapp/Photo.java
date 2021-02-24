@@ -8,6 +8,7 @@ public class Photo {
     private String mTag;
     private String mImageUrl;
 
+    // Classic POJO class to store photo's information
     public Photo(String mTitle, String mAuthor, String mAuthorId, String mLinks, String mTag, String mImageUrl) {
         this.mTitle = mTitle;
         this.mAuthor = mAuthor;

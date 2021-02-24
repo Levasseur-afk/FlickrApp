@@ -18,8 +18,9 @@ public class MainActivity extends AppCompatActivity implements GetFlickrJavaObje
         mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         GetFlickrJavaObjects getFlickrJavaObjects = new GetFlickrJavaObjects("beach, summer", true, this);
-        
     }
+
+    // Update the view using the photos retrieved from Flickr
     public void displayPhoto(List<Photo> photoList){
         FlickrRecyclerViewAdapter flickrRecyclerViewAdapter = new FlickrRecyclerViewAdapter(this, photoList);
         mRecyclerView.setAdapter(flickrRecyclerViewAdapter);

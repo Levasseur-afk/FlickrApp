@@ -17,6 +17,7 @@ import java.util.List;
 public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecyclerViewAdapter.FlickImageViewHolder>{
     private Context mContext;
     private List<Photo> mPhotoList;
+
     public FlickrRecyclerViewAdapter(Context context, List<Photo> photoList){
         this.mContext = context;
         mPhotoList = photoList;
@@ -35,6 +36,7 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
         return flickImageViewHolder;
     }
 
+    // Converting photo objects into real photos using Picasso
     @Override
     public void onBindViewHolder(@NonNull FlickImageViewHolder holder, int position) {
         Photo photo = mPhotoList.get(position);
