@@ -36,11 +36,16 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
         return flickImageViewHolder;
     }
 
-    // Converting photo objects into real photos using Picasso
+    // this method is called each time an element is created or updated
     @Override
     public void onBindViewHolder(@NonNull FlickImageViewHolder holder, int position) {
+        // retrieve the photo object and its properties
         Photo photo = mPhotoList.get(position);
+
+        // just set a title
         holder.title.setText(photo.getTitle());
+
+        // use Picasso to download images and put them in an imageView (holder.thumbnail)
         Picasso.with(mContext).load(photo.getImageUrl())
                 .error(R.drawable.placeholder)
                 .placeholder(R.drawable.placeholder)
@@ -56,4 +61,5 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
             this.title = (TextView) itemView.findViewById(R.id.title);
         }
     }
+
 }
